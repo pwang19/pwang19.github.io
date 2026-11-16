@@ -36,3 +36,26 @@ test('branches can be switched with arrow keys', async ({ page, isMobile }) => {
   await expect(page.getByRole('radio', { name: 'nut-free' })).toBeChecked();
   await expect(page.locator('#branch-title')).toHaveText('Nut-free');
 });
+
+test('chili crisp links to the Serious Eats recipe', async ({ page }) => {
+  await expect(page.getByRole('link', { name: 'a recipe on Serious Eats' })).toHaveAttribute(
+    'href',
+    'https://www.seriouseats.com/homemade-spicy-chili-crisp',
+  );
+});
+
+test('Enchantments hike is listed as completed, the rest as ongoing', async ({ page }) => {
+  const completed = page.locator('h2:text-is("Completed") + .teasers .card');
+  await expect(completed).toHaveCount(1);
+  await expect(completed).toContainText('The Enchantments in a day');
+  await expect(completed).toContainText('completed Aug 20, 2025');
+  await expect(completed.getByRole('link', { name: 'the Enchantments' })).toHaveAttribute(
+    'href',
+    'https://www.wta.org/go-hiking/hikes/enchantment-lakes',
+  );
+
+  const ongoing = page.locator('h2:text-is("Ongoing") + .teasers .card');
+  await expect(ongoing).toHaveCount(2);
+  await expect(ongoing.locator('.status')).toHaveText(['ongoing', 'ongoing']);
+  await expect(page.getByText('planned', { exact: true })).toHaveCount(0);
+});

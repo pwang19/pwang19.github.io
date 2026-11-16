@@ -87,7 +87,7 @@
   .diff .del { background: var(--accent-soft); color: var(--accent); }
   .teasers { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
   .teasers h3 { margin: 0 0 4px; font-size: 17px; }
-  .soon { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .status { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 
   footer { border-top: 1px solid var(--line); }
   footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-block: 18px; font-size: 14px; color: var(--muted); }
@@ -161,7 +161,7 @@
     <p class="lede">I took the nerdiness from a biology degree and poured it into food science. Same habits as work: change one variable, measure, ship the next version.</p>
 
     <h2>Chili crisp</h2>
-    <p>I didn't invent it: it's adapted from a recipe on Serious Eats. What I do is maintain the forks, one for each kind of person at my table.</p>
+    <p>I didn't invent it: it's adapted from <a href="https://www.seriouseats.com/homemade-spicy-chili-crisp">a recipe on Serious Eats</a>. What I do is maintain the forks, one for each kind of person at my table.</p>
     <div class="card">
       <fieldset class="branches">
         <legend>Branch</legend>
@@ -177,11 +177,15 @@
       </div>
     </div>
 
-    <h2>Coming next</h2>
+    <h2>Completed</h2>
     <div class="teasers">
-      <div class="card"><h3>The Enchantments in a day</h3><p>About 22 miles, one day, with friends. An elevation and pace chart, built like a runtime report.</p><span class="soon">planned</span></div>
-      <div class="card"><h3>3D print shop</h3><p>Toys, useful fixes, and medals for a kids' "Bible Olympics." Spin the models and see the print settings.</p><span class="soon">planned</span></div>
-      <div class="card"><h3>The dinner table</h3><p>Cooking for family and friends is how I recharge, and how I like to bring a team together.</p><span class="soon">planned</span></div>
+      <div class="card"><h3>The Enchantments in a day</h3><p>About 22 miles round trip through <a href="https://www.wta.org/go-hiking/hikes/enchantment-lakes">the Enchantments</a>, done in a single day with friends.</p><span class="status">completed Aug 20, 2025</span></div>
+    </div>
+
+    <h2>Ongoing</h2>
+    <div class="teasers">
+      <div class="card"><h3>3D print shop</h3><p>Useful things, toys and trinkets for my kids, and medals for a kids' "Bible Olympics."</p><span class="status">ongoing</span></div>
+      <div class="card"><h3>The dinner table</h3><p>Cooking for family and friends is how I recharge, and how I like to bring a team together.</p><span class="status">ongoing</span></div>
     </div>
   </section>
 
