@@ -9,7 +9,14 @@ test('shows the headline and primary links', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'I build tools that make engineering teams faster.',
   );
-  await expect(page.getByRole('link', { name: 'Résumé (PDF)' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Résumé (PDF)' })).toHaveAttribute(
+    'href',
+    'resume/Peter-Wang-Resume.pdf',
+  );
+  await expect(page.getByRole('link', { name: 'LinkedIn' })).toHaveAttribute(
+    'href',
+    'https://www.linkedin.com/in/peterwwang/',
+  );
   await expect(page.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
     'href',
     'https://github.com/pwang19',
@@ -46,4 +53,10 @@ test('page never scrolls horizontally', async ({ page }) => {
     () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
   );
   expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test('résumé PDF is published', async ({ request }) => {
+  const res = await request.get('/resume/Peter-Wang-Resume.pdf');
+  expect(res.status()).toBe(200);
+  expect(res.headers()['content-type']).toBe('application/pdf');
 });

@@ -73,18 +73,18 @@
   .detail ul { margin: 0; padding-left: 18px; }
 
   /* Lab notebook */
-  .recipe { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 680px) { .recipe { grid-template-columns: 1fr; } }
-  .changelog { font-family: var(--mono); font-size: 14px; list-style: none; padding: 0; margin: 0; }
-  .changelog li { padding: 10px 0; border-bottom: 1px dashed var(--line); }
-  .changelog li:last-child { border-bottom: 0; }
-  .tag { display: inline-block; font-size: 12px; padding: 1px 7px; border-radius: 99px; background: var(--accent-soft); color: var(--accent); margin-right: 6px; }
-  .ver { color: var(--muted); }
-  .heat label { font-weight: 600; display: block; margin-bottom: 6px; }
-  .heat input { width: 100%; accent-color: var(--accent); }
-  .heat-readout { font-size: 28px; margin: 10px 0 2px; }
-  .heat-note { color: var(--muted); font-size: 14px; margin: 0; }
-  .draft { font-size: 13px; color: var(--run); background: var(--run-soft); border-radius: 8px; padding: 8px 12px; margin-top: 16px; }
+  .branches { border: 0; padding: 0; margin: 0 0 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .branches legend { font-weight: 600; margin-bottom: 8px; padding: 0; }
+  .branches input { position: absolute; opacity: 0; pointer-events: none; }
+  .branches label { font-family: var(--mono); font-size: 14px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); cursor: pointer; }
+  .branches input:checked + label { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .branches input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .diff-title { font-weight: 600; margin: 0 0 4px; }
+  .diff-note { color: var(--muted); margin: 0 0 10px; font-size: 15px; }
+  .diff { list-style: none; margin: 0; padding: 0; font-family: var(--mono); font-size: 14px; }
+  .diff li { padding: 3px 10px; border-radius: 4px; margin-bottom: 4px; }
+  .diff .add { background: var(--ok-soft); color: var(--ok); }
+  .diff .del { background: var(--accent-soft); color: var(--accent); }
   .teasers { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
   .teasers h3 { margin: 0 0 4px; font-size: 17px; }
   .soon { font-family: var(--mono); font-size: 12px; color: var(--muted); }
@@ -103,7 +103,7 @@
     <nav aria-label="Main">
       <a href="#home">Home</a>
       <a href="#lab">Lab notebook</a>
-      <a href="#resume">Résumé</a>
+      <a href="resume/Peter-Wang-Resume.pdf">Résumé</a>
     </nav>
   </div>
 </header>
@@ -114,9 +114,9 @@
     <h1>I build tools that make engineering teams faster.</h1>
     <p class="lede">Automation engineer focused on CI/CD pipeline observability and AI-assisted engineering with MCP, Claude Code and Cursor. Biology major who still treats every flaky test like an experiment.</p>
     <div class="btns">
-      <a class="btn primary" href="#resume">Résumé (PDF)</a>
+      <a class="btn primary" href="resume/Peter-Wang-Resume.pdf">Résumé (PDF)</a>
       <a class="btn" href="https://github.com/pwang19">GitHub</a>
-      <a class="btn" href="#" title="Add your LinkedIn URL">LinkedIn</a>
+      <a class="btn" href="https://www.linkedin.com/in/peterwwang/">LinkedIn</a>
     </div>
 
     <div class="proof">
@@ -161,23 +161,21 @@
     <p class="lede">I took the nerdiness from a biology degree and poured it into food science. Same habits as work: change one variable, measure, ship the next version.</p>
 
     <h2>Chili crisp</h2>
-    <div class="recipe">
-      <div class="card">
-        <ul class="changelog">
-          <li><span class="ver">v3.2</span><br><span class="tag">perf</span>crunch now holds for weeks instead of days</li>
-          <li><span class="ver">v3.0</span><br><span class="tag">feat</span>added fermented black beans</li>
-          <li><span class="ver">v2.1</span><br><span class="tag">fix</span>garlic burning; lowered oil temperature</li>
-          <li><span class="ver">v1.0</span><br><span class="tag">init</span>first jar, served to friends</li>
-        </ul>
-      </div>
-      <div class="card heat">
-        <label for="heat">Heat level</label>
-        <input id="heat" type="range" min="1" max="5" value="3">
-        <div class="heat-readout" id="heat-readout" aria-live="polite"></div>
-        <p class="heat-note" id="heat-note"></p>
+    <p>I didn't invent it: it's adapted from a recipe on Serious Eats. What I do is maintain the forks, one for each kind of person at my table.</p>
+    <div class="card">
+      <fieldset class="branches">
+        <legend>Branch</legend>
+        <input type="radio" name="branch" id="b-main" value="main" checked><label for="b-main">main</label>
+        <input type="radio" name="branch" id="b-nut-free" value="nut-free"><label for="b-nut-free">nut-free</label>
+        <input type="radio" name="branch" id="b-extra-spicy" value="extra-spicy"><label for="b-extra-spicy">extra-spicy</label>
+        <input type="radio" name="branch" id="b-mild-mala" value="mild-mala"><label for="b-mild-mala">mild-mala</label>
+      </fieldset>
+      <div aria-live="polite">
+        <p class="diff-title" id="branch-title"></p>
+        <p class="diff-note" id="branch-note"></p>
+        <ul class="diff" id="branch-diff"></ul>
       </div>
     </div>
-    <p class="draft">Draft: changelog entries and heat notes are placeholders. Replace them with your real recipe history.</p>
 
     <h2>Coming next</h2>
     <div class="teasers">
@@ -187,11 +185,6 @@
     </div>
   </section>
 
-  <!-- RESUME placeholder -->
-  <section id="page-resume" data-page="resume" hidden>
-    <h1>Résumé</h1>
-    <p class="lede">Placeholder: this page will hold a plain, skimmable résumé and a PDF download.</p>
-  </section>
 </main>
 
 <footer>
@@ -203,7 +196,7 @@
 
 <script>
   // Hash routing between pages
-  const pages = ["home", "lab", "resume"];
+  const pages = ["home", "lab"];
   function route() {
     const page = pages.includes(location.hash.slice(1)) ? location.hash.slice(1) : "home";
     document.querySelectorAll("[data-page]").forEach(s => s.hidden = s.dataset.page !== page);
@@ -226,22 +219,28 @@
     });
   });
 
-  // Heat slider (placeholder copy)
-  const heat = [
-    ["🌶️", "Mild: for the kids' table"],
-    ["🌶️🌶️", "Gentle: everyday noodles"],
-    ["🌶️🌶️🌶️", "House batch: what friends ask for"],
-    ["🌶️🌶️🌶️🌶️", "Hot: bring a glass of milk"],
-    ["🌶️🌶️🌶️🌶️🌶️", "Release candidate: not yet cleared for production"],
-  ];
-  const slider = document.getElementById("heat");
-  function showHeat() {
-    const [icons, note] = heat[slider.value - 1];
-    document.getElementById("heat-readout").textContent = icons;
-    document.getElementById("heat-note").textContent = note;
+  // Chili crisp branches: what each variation changes from the original
+  const branches = {
+    "main": ["The original", "The Serious Eats recipe, the upstream every variation is forked from.", []],
+    "nut-free": ["Nut-free", "So friends with peanut allergies can have some too.", [["del", "peanuts"]]],
+    "extra-spicy": ["Extra spicy", "Turned up for the spice lovers.", [["add", "more heat"]]],
+    "mild-mala": ["Mild and more mala", "Less burn, more of the numbing tingle.", [["del", "heat"], ["add", "mala"]]],
+  };
+  function showBranch() {
+    const [title, note, diff] = branches[document.querySelector("input[name=branch]:checked").value];
+    document.getElementById("branch-title").textContent = title;
+    document.getElementById("branch-note").textContent = note;
+    const list = document.getElementById("branch-diff");
+    list.replaceChildren(...diff.map(([kind, text]) => {
+      const li = document.createElement("li");
+      li.className = kind;
+      li.textContent = (kind === "add" ? "+ " : "- ") + text;
+      return li;
+    }));
+    list.hidden = diff.length === 0;
   }
-  slider.addEventListener("input", showHeat);
-  showHeat();
+  document.querySelectorAll("input[name=branch]").forEach(r => r.addEventListener("change", showBranch));
+  showBranch();
 
   // Theme toggle (remembered per browser if storage is available)
   const root = document.documentElement;
