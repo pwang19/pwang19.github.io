@@ -91,10 +91,7 @@
 
   footer { border-top: 1px solid var(--line); }
   footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-block: 18px; font-size: 14px; color: var(--muted); }
-  .badge { font-family: var(--mono); font-size: 12px; display: inline-flex; border-radius: 4px; overflow: hidden; }
-  .badge span { padding: 2px 8px; }
-  .badge span:first-child { background: #3b4048; color: #fff; }
-  .badge span:last-child { background: var(--ok); color: var(--on-fill); }
+  .badge { display: inline-flex; align-items: center; }
   .theme-toggle { all: unset; cursor: pointer; font-size: 14px; color: var(--muted); }
   .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 </style>
@@ -199,7 +196,7 @@
 
 <footer>
   <div class="wrap">
-    <span class="badge" title="Placeholder until the Playwright CI workflow is wired up"><span>site tests</span><span>passing</span></span>
+    <a class="badge" href="https://github.com/pwang19/pwang19.github.io/actions/workflows/playwright.yml"><img src="https://github.com/pwang19/pwang19.github.io/actions/workflows/playwright.yml/badge.svg" alt="Playwright test status for this site" height="20"></a>
     <button class="theme-toggle" id="theme-toggle">Toggle theme</button>
   </div>
 </footer>
