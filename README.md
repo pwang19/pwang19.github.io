@@ -2,7 +2,7 @@
 
 Peter Wang's personal site. Static HTML for now; open `index.html` in a browser.
 
-Status: clickable mockup (home + lab notebook). Placeholder content is marked as such.
+Live at https://pwang19.github.io/. Status: clickable mockup (home + lab notebook). Placeholder content is marked as such.
 
 ## Tests
 
