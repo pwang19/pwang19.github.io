@@ -5,96 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Peter Wang</title>
 <meta name="description" content="Peter Wang: automation engineer building CI/CD pipeline observability and AI-assisted engineering tools.">
-<style>
-  :root {
-    --bg: #fbfaf7; --surface: #ffffff; --text: #1d1f24; --muted: #5d6470;
-    --line: #e4e1da; --accent: #a8380a; --accent-soft: #fdebe1;
-    --ok: #15803d; --ok-soft: #e3f4e8; --run: #92400e; --run-soft: #fdf1dc;
-    --on-fill: #ffffff;
-    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #15171b; --surface: #1d2025; --text: #e9e7e3; --muted: #a2a8b3;
-      --line: #2e323a; --accent: #fb923c; --accent-soft: #3a2418;
-      --ok: #4ade80; --ok-soft: #173322; --run: #fbbf24; --run-soft: #3a2e12;
-      --on-fill: #15171b;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #15171b; --surface: #1d2025; --text: #e9e7e3; --muted: #a2a8b3;
-    --line: #2e323a; --accent: #fb923c; --accent-soft: #3a2418;
-    --ok: #4ade80; --ok-soft: #173322; --run: #fbbf24; --run-soft: #3a2e12;
-      --on-fill: #15171b;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 var(--sans); }
-  a { color: var(--accent); }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
-  header.top { border-bottom: 1px solid var(--line); }
-  header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 14px; flex-wrap: wrap; }
-  .brand { font-family: var(--mono); font-weight: 600; text-decoration: none; color: var(--text); }
-  nav a { margin-left: 18px; color: var(--muted); text-decoration: none; font-size: 15px; }
-  nav a:first-child { margin-left: 0; }
-  nav a[aria-current="page"] { color: var(--text); font-weight: 600; }
-  main { padding-block: 48px 64px; }
-  section[hidden] { display: none; }
-  h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.15; margin: 0 0 14px; letter-spacing: -0.02em; }
-  h2 { font-size: 22px; margin: 48px 0 16px; }
-  .lede { font-size: 18px; color: var(--muted); max-width: 640px; margin: 0; }
-  .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
-  .btn { display: inline-block; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--text); text-decoration: none; font-size: 15px; }
-  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-fill); }
-  .proof { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 40px; }
-  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
-  .stat { font-size: 26px; font-weight: 700; letter-spacing: -0.01em; }
-  .card p { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
-
-  /* Pipeline timeline */
-  .pipeline { list-style: none; padding: 0; margin: 0; }
-  .stage { position: relative; padding-left: 40px; padding-bottom: 6px; }
-  .stage::before { content: ""; position: absolute; left: 13px; top: 30px; bottom: -4px; width: 2px; background: var(--line); }
-  .stage:last-child::before { display: none; }
-  .dot { position: absolute; left: 0; top: 6px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; font-weight: 700; }
-  .dot.ok { background: var(--ok-soft); color: var(--ok); }
-  .dot.run { background: var(--run-soft); color: var(--run); }
-  .dot.run::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--run); animation: pulse 1.4s ease-in-out infinite; }
-  @keyframes pulse { 50% { opacity: .3; } }
-  @media (prefers-reduced-motion: reduce) { .dot.run::after { animation: none; } }
-  .stage button { all: unset; cursor: pointer; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; width: 100%; padding: 8px 0; }
-  .stage button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
-  .stage .name { font-weight: 600; }
-  .stage .meta { font-family: var(--mono); font-size: 13px; color: var(--muted); }
-  .stage .chev { margin-left: auto; color: var(--muted); transition: transform .2s; }
-  .stage[data-open="true"] .chev { transform: rotate(90deg); }
-  .stage .detail { display: none; margin: 0 0 14px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; font-size: 15px; }
-  .stage[data-open="true"] .detail { display: block; }
-  .detail ul { margin: 0; padding-left: 18px; }
-
-  /* Lab notebook */
-  .branches { border: 0; padding: 0; margin: 0 0 12px; display: flex; flex-wrap: wrap; gap: 8px; }
-  .branches legend { font-weight: 600; margin-bottom: 8px; padding: 0; }
-  .branches input { position: absolute; opacity: 0; pointer-events: none; }
-  .branches label { font-family: var(--mono); font-size: 14px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); cursor: pointer; }
-  .branches input:checked + label { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
-  .branches input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .diff-title { font-weight: 600; margin: 0 0 4px; }
-  .diff-note { color: var(--muted); margin: 0 0 10px; font-size: 15px; }
-  .diff { list-style: none; margin: 0; padding: 0; font-family: var(--mono); font-size: 14px; }
-  .diff li { padding: 3px 10px; border-radius: 4px; margin-bottom: 4px; }
-  .diff .add { background: var(--ok-soft); color: var(--ok); }
-  .diff .del { background: var(--accent-soft); color: var(--accent); }
-  .teasers { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-  .teasers h3 { margin: 0 0 4px; font-size: 17px; }
-  .status { font-family: var(--mono); font-size: 12px; color: var(--muted); }
-
-  footer { border-top: 1px solid var(--line); }
-  footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-block: 18px; font-size: 14px; color: var(--muted); }
-  .badge { display: inline-flex; align-items: center; }
-  .theme-toggle { all: unset; cursor: pointer; font-size: 14px; color: var(--muted); }
-  .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-</style>
+<link rel="stylesheet" href="css/style.css">
+<!-- Apply the saved theme before first paint; the rest of the JS is deferred. -->
+<script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<script src="js/main.js" defer></script>
 </head>
 <body>
 <header class="top">
@@ -119,7 +33,7 @@
       <a class="btn" href="https://www.linkedin.com/in/peterwwang/">LinkedIn</a>
     </div>
 
-    <div class="proof">
+    <div class="grid proof">
       <div class="card"><div class="stat">5,000–8,000</div><p>test plans a day tracked by a pipeline runtime analyzer I built and scaled</p></div>
       <div class="card"><div class="stat">70–90%</div><p>less test setup time (10–12 min down to 1–3) using shared base data</p></div>
       <div class="card"><div class="stat">MCP server</div><p>that let Claude and Cursor query pipeline health directly</p></div>
@@ -178,13 +92,13 @@
     </div>
 
     <h2>Completed</h2>
-    <div class="teasers">
+    <div class="grid teasers">
       <div class="card"><h3>The Enchantments in a day</h3><p>About 22 miles round trip through <a href="https://www.wta.org/go-hiking/hikes/enchantment-lakes">the Enchantments</a>, done in a single day with friends.</p><span class="status">completed Aug 20, 2025</span></div>
     </div>
 
     <h2>Ongoing</h2>
-    <div class="teasers">
-      <div class="card"><h3>3D printing</h3><p>Useful things, toys and trinkets for my kids. For example, I've mademedals for a kids' "Bible Olympics."</p><span class="status">ongoing</span></div>
+    <div class="grid teasers">
+      <div class="card"><h3>3D printing</h3><p>Useful things, toys and trinkets for my kids. For example, I've made medals for a kids' "Bible Olympics."</p><span class="status">ongoing</span></div>
       <div class="card"><h3>The dinner table</h3><p>I love cooking for my family and friends, and often invite them over.</p><span class="status">ongoing</span></div>
     </div>
   </section>
@@ -198,62 +112,5 @@
   </div>
 </footer>
 
-<script>
-  // Hash routing between pages
-  const pages = ["home", "lab"];
-  function route() {
-    const page = pages.includes(location.hash.slice(1)) ? location.hash.slice(1) : "home";
-    document.querySelectorAll("[data-page]").forEach(s => s.hidden = s.dataset.page !== page);
-    document.querySelectorAll("nav a").forEach(a => {
-      if (a.getAttribute("href") === "#" + page) a.setAttribute("aria-current", "page");
-      else a.removeAttribute("aria-current");
-    });
-    window.scrollTo(0, 0);
-  }
-  addEventListener("hashchange", route);
-  route();
-
-  // Expandable pipeline stages
-  document.querySelectorAll(".stage button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const stage = btn.closest(".stage");
-      const open = stage.dataset.open !== "true";
-      stage.dataset.open = open;
-      btn.setAttribute("aria-expanded", open);
-    });
-  });
-
-  // Chili crisp branches: what each variation changes from the original
-  const branches = {
-    "main": ["The original", "The Serious Eats recipe, with minor adjustments, only because I didn't have some ingredients...", []],
-    "nut-free": ["Nut-free", "So friends with peanut allergies can have some too.", [["del", "peanuts"]]],
-    "extra-spicy": ["Extra spicy", "Turned up for the spice lovers.", [["add", "more heat"]]],
-    "mild-mala": ["Mild and more mala", "Less burn, more of the numbing tingle.", [["del", "heat"], ["add", "mala"]]],
-  };
-  function showBranch() {
-    const [title, note, diff] = branches[document.querySelector("input[name=branch]:checked").value];
-    document.getElementById("branch-title").textContent = title;
-    document.getElementById("branch-note").textContent = note;
-    const list = document.getElementById("branch-diff");
-    list.replaceChildren(...diff.map(([kind, text]) => {
-      const li = document.createElement("li");
-      li.className = kind;
-      li.textContent = (kind === "add" ? "+ " : "- ") + text;
-      return li;
-    }));
-    list.hidden = diff.length === 0;
-  }
-  document.querySelectorAll("input[name=branch]").forEach(r => r.addEventListener("change", showBranch));
-  showBranch();
-
-  // Theme toggle (remembered per browser if storage is available)
-  const root = document.documentElement;
-  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
-  document.getElementById("theme-toggle").addEventListener("click", () => {
-    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-    root.dataset.theme = dark ? "light" : "dark";
-    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
-  });
-</script>
 </body>
 </html>

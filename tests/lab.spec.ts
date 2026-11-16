@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('chili crisp credits its source', async ({ page }) => {
-  await expect(page.getByText("adapted from a recipe on Serious Eats")).toBeVisible();
+  await expect(page.getByText("I used Sohla El-Waylly's recipe on Serious Eats")).toBeVisible();
 });
 
 test('original branch is selected by default with no diff', async ({ page }) => {
@@ -38,7 +38,7 @@ test('branches can be switched with arrow keys', async ({ page, isMobile }) => {
 });
 
 test('chili crisp links to the Serious Eats recipe', async ({ page }) => {
-  await expect(page.getByRole('link', { name: 'a recipe on Serious Eats' })).toHaveAttribute(
+  await expect(page.getByRole('link', { name: 'recipe on Serious Eats' })).toHaveAttribute(
     'href',
     'https://www.seriouseats.com/homemade-spicy-chili-crisp',
   );

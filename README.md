@@ -1,6 +1,7 @@
 # Personal website
 
-Peter Wang's personal site. Static HTML for now; open `index.html` in a browser.
+Peter Wang's personal site. Static site, no build step: `index.html` (markup), `css/style.css`, `js/main.js`.
+Run `npm run serve` and open http://localhost:4173.
 
 Live at https://pwang19.github.io/. Status: clickable mockup (home + lab notebook). Placeholder content is marked as such.
 
