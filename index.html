@@ -16,6 +16,7 @@
     <a class="brand" href="#home">peter.wang</a>
     <nav aria-label="Main">
       <a href="#home">Home</a>
+      <a href="#projects">Projects</a>
       <a href="#lab">Lab notebook</a>
       <a href="resume/Peter-Wang-Resume.pdf">Résumé</a>
     </nav>
@@ -34,7 +35,7 @@
     </div>
 
     <div class="grid proof">
-      <div class="card"><div class="stat">5,000–8,000</div><p>test plans a day tracked by a pipeline runtime analyzer I built and scaled</p></div>
+      <div class="card"><div class="stat">5,000–8,000</div><p>test plans a day tracked by a pipeline runtime analyzer I built and scaled. <a href="#analyzer">Try a mini version →</a></p></div>
       <div class="card"><div class="stat">70–90%</div><p>less test setup time (10–12 min down to 1–3) using shared base data</p></div>
       <div class="card"><div class="stat">MCP server</div><p>that let Claude and Cursor query pipeline health directly</p></div>
     </div>
@@ -59,7 +60,7 @@
       <li class="stage">
         <span class="dot ok" aria-hidden="true">✓</span>
         <button aria-expanded="false"><span class="name">Observe: Automation Engineer</span><span class="meta">Workday · 2024–2026</span><span class="chev" aria-hidden="true">›</span></button>
-        <div class="detail"><ul><li>Built a pipeline runtime analyzer with Cursor, scaled it to 5,000–8,000 test plans a day, and extended it into an MCP server for Claude and Cursor</li><li>My data and reports supported the escalation of an org-wide runtime regression and confirmed the fix</li><li>Co-built a weekly quarantine-tracking job that files release-gating Jira blockers</li></ul></div>
+        <div class="detail"><ul><li>Built a pipeline runtime analyzer with Cursor, scaled it to 5,000–8,000 test plans a day, and extended it into an MCP server for Claude and Cursor (<a href="#analyzer">try a mini version</a>)</li><li>My data and reports supported the escalation of an org-wide runtime regression and confirmed the fix</li><li>Co-built a weekly quarantine-tracking job that files release-gating Jira blockers</li></ul></div>
       </li>
       <li class="stage">
         <span class="dot run" aria-hidden="true"></span>
@@ -67,6 +68,106 @@
         <div class="detail">Looking for SDET and developer-tooling roles in Seattle or remote. Currently sharpening Playwright + TypeScript: <a href="https://github.com/pwang19/saucedemo-playwright">saucedemo-playwright</a>.</div>
       </li>
     </ol>
+
+    <h2>Side projects</h2>
+    <div class="grid">
+      <div class="card"><h3>ListApp</h3><p>My own to-do app: offline-first, synced between my Mac and iPad.</p></div>
+      <div class="card"><h3>Places</h3><p>A shared log of where our friends like to eat and take their kids.</p></div>
+    </div>
+    <p><a href="#projects">All projects →</a></p>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="page-projects" data-page="projects" hidden>
+    <h1>Projects</h1>
+    <p class="lede">Things I've built outside work, mostly to solve my own problems.</p>
+
+    <div class="grid projects">
+      <article class="card">
+        <h3>ListApp</h3>
+        <p>I wanted a to-do app where I control which features it has, and I don't need many. So I built my own.</p>
+        <ul>
+          <li>Installable web app that works offline on Mac and iPad</li>
+          <li>Syncs across devices, merging conflicting edits and keeping version history</li>
+          <li>Daily web-push reminders, keyboard-accessible drag and drop</li>
+        </ul>
+        <p class="stack">JavaScript · TypeScript · Supabase · PWA</p>
+        <p class="links"><a href="https://listapp.pwang19.workers.dev">Live</a><a href="https://github.com/pwang19/listapp">Code</a></p>
+      </article>
+      <article class="card">
+        <h3>Places</h3>
+        <p>My friends know all sorts of places to eat or take the kids to play. Places logs those recommendations in one spot instead of on Yelp or someone's Google Sheet, and doubles as a quick guide when visitors are deciding where to go.</p>
+        <ul>
+          <li>Places, star reviews and tags, with sorting and tag filters</li>
+          <li>Access rules enforced in the database with Postgres row-level security</li>
+          <li>Per-user private notes encrypted with AES-256-GCM in an Edge Function</li>
+        </ul>
+        <p class="stack">React · Vite · TypeScript · Supabase</p>
+        <p class="links"><a href="https://github.com/pwang19/places">Code</a><span>App is private to a group of friends</span></p>
+      </article>
+      <article class="card">
+        <h3>saucedemo-playwright</h3>
+        <p>A Playwright test suite for a demo online store, where I'm sharpening Playwright + TypeScript.</p>
+        <p class="stack">Playwright · TypeScript</p>
+        <p class="links"><a href="https://github.com/pwang19/saucedemo-playwright">Code</a></p>
+      </article>
+      <article class="card">
+        <h3>Runtime analyzer (demo)</h3>
+        <p>A playable mini version of a test-runtime analyzer I built at work: find the test suite that got slower. Synthetic data only.</p>
+        <p class="stack">JavaScript · SVG</p>
+        <p class="links"><a href="#analyzer">Try it</a></p>
+      </article>
+      <article class="card">
+        <h3>This site</h3>
+        <p>Static HTML, CSS and JS with no build step, tested nightly on Chromium, WebKit and mobile, including WCAG accessibility scans in light and dark mode.</p>
+        <p class="stack">HTML · CSS · Playwright · GitHub Actions</p>
+        <p class="links"><a href="https://github.com/pwang19/pwang19.github.io">Code</a></p>
+      </article>
+    </div>
+  </section>
+
+  <!-- RUNTIME ANALYZER DEMO -->
+  <section id="page-analyzer" data-page="analyzer" hidden>
+    <h1>Runtime analyzer</h1>
+    <p class="lede">At a former employer I built a tool that tracked how long thousands of test plans took to run each day, so teams could see when their suites got slower. This is a pared-down version you can play with.</p>
+    <p class="note">All data here is synthetic: made-up suites, made-up numbers.</p>
+
+    <article class="card analyzer">
+      <p><strong>One of these test suites got slower and stayed slower.</strong> Pick a suite, then click the day you think the regression landed.</p>
+      <fieldset class="branches">
+        <legend>Suite</legend>
+        <input type="radio" name="suite" id="s-checkout" value="checkout" checked><label for="s-checkout">checkout</label>
+        <input type="radio" name="suite" id="s-search" value="search"><label for="s-search">search</label>
+        <input type="radio" name="suite" id="s-accounts" value="accounts"><label for="s-accounts">accounts</label>
+        <input type="radio" name="suite" id="s-payments" value="payments"><label for="s-payments">payments</label>
+        <input type="radio" name="suite" id="s-notifications" value="notifications"><label for="s-notifications">notifications</label>
+      </fieldset>
+      <h2 class="chart-title" id="chart-title"></h2>
+      <svg class="chart" id="chart" viewBox="0 0 600 240" role="group" aria-labelledby="chart-title"></svg>
+      <p class="feedback" id="guess-feedback" aria-live="polite"></p>
+    </article>
+
+    <article class="card reveal" id="reveal" hidden>
+      <h2>What changed on day 18</h2>
+      <p>Five payments tests account for the whole slowdown. The other 14 didn't change.</p>
+      <table>
+        <thead><tr><th scope="col">Test</th><th scope="col">Before</th><th scope="col">After</th><th scope="col">Change</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">refund flow</th><td>1.9 min</td><td>3.4 min</td><td>+1.5</td></tr>
+          <tr><th scope="row">saved-card checkout</th><td>2.1 min</td><td>3.3 min</td><td>+1.2</td></tr>
+          <tr><th scope="row">split payment</th><td>1.6 min</td><td>2.5 min</td><td>+0.9</td></tr>
+          <tr><th scope="row">currency conversion</th><td>1.2 min</td><td>1.7 min</td><td>+0.5</td></tr>
+          <tr><th scope="row">receipt email</th><td>0.9 min</td><td>1.0 min</td><td>+0.1</td></tr>
+        </tbody>
+      </table>
+      <p>The culprit was commit <code>3f9c2ab</code>, "fixture: create users per test instead of sharing seeded ones". Every test now paid for its own setup.</p>
+      <h3>What the real tool did</h3>
+      <ul>
+        <li>Collected runtimes for every test plan in every pipeline run, every day</li>
+        <li>Flagged suites whose runtime stepped up and stayed up, not one-off spikes</li>
+        <li>Answered "what got slower, and when?" through an MCP server, so Claude and Cursor could ask it directly</li>
+      </ul>
+    </article>
   </section>
 
   <!-- LAB NOTEBOOK -->
@@ -74,9 +175,10 @@
     <h1>Lab notebook</h1>
     <p class="lede">I'm a nerd. I have a science background, and since I couldn't use my biology degree for research, I poured it into food science. </p>
 
-    <h2>Chili crisp</h2>
-    <p>My friends love my chili crisp, but the secret is that I used Sohla El-Waylly's <a href="https://www.seriouseats.com/homemade-spicy-chili-crisp">recipe on Serious Eats</a>. I've made several adaptations for different tastes.</p>
-    <div class="card">
+    <h2>Kitchen</h2>
+    <article class="card">
+      <h3>Chili crisp</h3>
+      <p>My friends love my chili crisp, but the secret is that I used Sohla El-Waylly's <a href="https://www.seriouseats.com/homemade-spicy-chili-crisp">recipe on Serious Eats</a>. I've made several adaptations for different tastes.</p>
       <fieldset class="branches">
         <legend>Branch</legend>
         <input type="radio" name="branch" id="b-main" value="main" checked><label for="b-main">main</label>
@@ -89,17 +191,19 @@
         <p class="diff-note" id="branch-note"></p>
         <ul class="diff" id="branch-diff"></ul>
       </div>
+    </article>
+    <div class="grid entries">
+      <article class="card"><h3>The dinner table</h3><p>I love cooking for my family and friends, and often invite them over.</p><span class="status">ongoing</span></article>
     </div>
 
-    <h2>Completed</h2>
-    <div class="grid teasers">
-      <div class="card"><h3>The Enchantments in a day</h3><p>About 22 miles round trip through <a href="https://www.wta.org/go-hiking/hikes/enchantment-lakes">the Enchantments</a>, done in a single day with friends.</p><span class="status">completed Aug 20, 2025</span></div>
+    <h2>Workshop</h2>
+    <div class="grid">
+      <article class="card"><h3>3D printing</h3><p>Useful things, toys and trinkets for my kids. For example, I've made medals for a kids' "Bible Olympics."</p><span class="status">ongoing</span></article>
     </div>
 
-    <h2>Ongoing</h2>
-    <div class="grid teasers">
-      <div class="card"><h3>3D printing</h3><p>Useful things, toys and trinkets for my kids. For example, I've made medals for a kids' "Bible Olympics."</p><span class="status">ongoing</span></div>
-      <div class="card"><h3>The dinner table</h3><p>I love cooking for my family and friends, and often invite them over.</p><span class="status">ongoing</span></div>
+    <h2>Outdoors</h2>
+    <div class="grid">
+      <article class="card"><h3>The Enchantments in a day</h3><p>About 22 miles round trip through <a href="https://www.wta.org/go-hiking/hikes/enchantment-lakes">the Enchantments</a>, done in a single day with friends.</p><span class="status">completed Aug 20, 2025</span></article>
     </div>
   </section>
 

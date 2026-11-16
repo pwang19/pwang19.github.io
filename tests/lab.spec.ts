@@ -44,18 +44,17 @@ test('chili crisp links to the Serious Eats recipe', async ({ page }) => {
   );
 });
 
-test('Enchantments hike is listed as completed, the rest as ongoing', async ({ page }) => {
-  const completed = page.locator('h2:text-is("Completed") + .teasers .card');
-  await expect(completed).toHaveCount(1);
-  await expect(completed).toContainText('The Enchantments in a day');
-  await expect(completed).toContainText('completed Aug 20, 2025');
-  await expect(completed.getByRole('link', { name: 'the Enchantments' })).toHaveAttribute(
+test('entries are grouped by theme, each with its status', async ({ page }) => {
+  await expect(page.getByRole('heading', { level: 2 })).toHaveText(['Kitchen', 'Workshop', 'Outdoors']);
+
+  const hike = page.getByRole('article').filter({ hasText: 'The Enchantments in a day' });
+  await expect(hike.locator('.status')).toHaveText('completed Aug 20, 2025');
+  await expect(hike.getByRole('link', { name: 'the Enchantments' })).toHaveAttribute(
     'href',
     'https://www.wta.org/go-hiking/hikes/enchantment-lakes',
   );
 
-  const ongoing = page.locator('h2:text-is("Ongoing") + .teasers .card');
-  await expect(ongoing).toHaveCount(2);
-  await expect(ongoing.locator('.status')).toHaveText(['ongoing', 'ongoing']);
-  await expect(page.getByText('planned', { exact: true })).toHaveCount(0);
+  for (const name of ['The dinner table', '3D printing']) {
+    await expect(page.getByRole('article').filter({ hasText: name }).locator('.status')).toHaveText('ongoing');
+  }
 });

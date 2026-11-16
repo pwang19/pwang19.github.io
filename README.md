@@ -3,7 +3,7 @@
 Peter Wang's personal site. Static site, no build step: `index.html` (markup), `css/style.css`, `js/main.js`.
 Run `npm run serve` and open http://localhost:4173.
 
-Live at https://pwang19.github.io/. Status: clickable mockup (home + lab notebook). Placeholder content is marked as such.
+Live at https://pwang19.github.io/. Pages: home, projects, lab notebook and a runtime-analyzer demo (`#analyzer`, synthetic data only). Placeholder content is marked as such.
 
 ## Tests
 
@@ -17,6 +17,6 @@ npm test            # starts a local server on :4173 automatically
 ```
 
 Covers page content, pipeline expand/collapse (mouse and keyboard), hash navigation,
-the heat slider, theme persistence, horizontal-overflow on mobile, and axe WCAG A/AA
+the heat slider, the runtime-analyzer guessing game, theme persistence, horizontal-overflow on mobile, and axe WCAG A/AA
 scans in light and dark mode. CI (`.github/workflows/playwright.yml`) runs on push, PRs
 and nightly.
